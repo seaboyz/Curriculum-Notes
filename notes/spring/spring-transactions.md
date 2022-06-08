@@ -1,6 +1,10 @@
 # @Transactional
+## transactions
+    * start
+    * commit
+    * rollback
 
-The page details the use of `@Transactional` in Spring to utilize transaction management and contextual sessions.
+The page details the use of `@Transactional` in Spring to utilize ***transaction management*** and contextual sessions.
 
 
 
