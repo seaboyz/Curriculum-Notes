@@ -28,16 +28,16 @@ The ***ApplicationContext*** interface is built on top of the ***BeanFactory*** 
 
 Dependency Injection can occur through the following methods:
 
-* Constructor Injection: Dependency Injection accomplished when the container invokes a constructor with arguments to instantiate a bean in which each argument of said constructor represents a dependency.
+* Constructor Injection: Dependency Injection accomplished when the ***container invokes a constructor with arguments to instantiate*** a bean in which each argument of said constructor represents a dependency.
 ![](../images/constructor-injection.png)
-* Setter Injection: Dependency Injection accomplished when the container calls setter methods on a bean after invoking a no-argument constructor to instatiate a bean.
+* Setter Injection: Dependency Injection accomplished when the ***container calls setter methods on a bean after invoking a no-argument constructor to instatiate a bean.***
 ![](../images/setter-injection.png)
 * Filed Injection
 ![](../images/filed-injection.png)
 
 ### Constructor Injection Examples
 __XML Configuration__
-```
+```xml
 <beans>
     <bean id = "order" class = "com.revature.models.Order">
         <constructor-arg ref="account"/>
@@ -54,7 +54,7 @@ __XML Configuration__
 
 
 __Annotation Configuration__
-```
+```java
 package com.revature.models;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +78,7 @@ public class Order {
 
 
 __Java Configuration__
-```
+```java
 package com.revature.config;
 
 // import statements
@@ -101,7 +101,7 @@ public class AppConfig {
 ### Setter Injection Examples
 __XML Configuration__
 NOTE: XML Configuration does not directly support setter injection, rather, it is accomplished through properties
-```
+```xml
 <beans>
 
     ...
@@ -123,7 +123,7 @@ NOTE: XML Configuration does not directly support setter injection, rather, it i
 
 
 __Annotation Configuration__
-```
+```java
 package com.revature.models;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -144,7 +144,7 @@ public class Order {
 
 
 __Java Configuration__
-```
+```java
 package com.revature.config;
 
 // import statements
@@ -166,12 +166,12 @@ public class AppConfig {
 ```
 
 ### Constructor vs Setter Injection
-* Constructor Injection is more secure, since dependencies are required to create an object, you are guaranteed to have each dependency populated
-* Consturctor Injection enables the implementation of immutable objects
-* Setter Injection allows for partial dependencies since Constructor injection requires all properties to be established upon bean instantiation.
-* Setter Injection occurs after constructor injection, essentially putting giving setter injection precedence over constructor injection
-* Setter Injection can easily change values, and does not create new bean instances, making it more flexible than constructor injection.
-* Setter Injection can resolve circular references (i.e. if Object A and Object B are dependent on each other, setter injection can be used to resolve this, whereas Constructor injection would throw a BeanCurrentlyInCreationException).
+* Constructor Injection is more ***secure***, since dependencies are required to create an object, you are ***guaranteed*** to have each dependency populated
+* Consturctor Injection enables the implementation of ***immutable*** objects
+* Setter Injection allows for ***partial dependencies*** since Constructor injection requires all properties to be ***established upon bean instantiation.***
+* Setter Injection occurs ***after*** constructor injection, essentially putting giving setter injection precedence over constructor injection
+* Setter Injection can ***easily change values***, and does not create new bean instances, making it more ***flexible*** than constructor injection.
+* Setter Injection can ***resolve circular references*** (i.e. if Object A and Object B are dependent on each other, setter injection can be used to resolve this, whereas Constructor injection would throw a BeanCurrentlyInCreationException).
 
 
 ### References
