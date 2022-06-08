@@ -6,18 +6,22 @@ This page details an overview of the Spring MVC Framework and explains how to ut
 
 
 ## Spring Model View Controller Architecture
-The Spring MVC Framework, like many other MVC Frameworks, is a request driven structure, designed around a central Servlet which dispatches requests to controllers and offers functionality to support the web application. As a breif recap, Models represent data to be stored and/or retrieved from a database or environment, the View is the user interface and displays model data and the controller handles requests between the model and responds with appropriate views. Unlike other MVC frameworks, the Spring `DispatcherServlet` is completely itegrated with the Spring IoC container, allowing the use of every other Spring feature in addition to this functionality. A high level overview of this request processing structure can be viewed below:
+The Spring MVC Framework, like many other MVC Frameworks, is a ***request driven structure***, designed around a central ***Servlet*** which dispatches requests to controllers and offers functionality to support the web application. As a breif recap, 
+* ***Models*** represent data to be stored and/or retrieved from a database or environment
+* ***View*** is the user interface and displays model data
+* ***Controller*** handles requests between the ***model*** and ***responds with appropriate views***. 
+* Unlike other MVC frameworks, the Spring ***DispatcherServlet*** is completely ***itegrated*** with the Spring IoC container, allowing the use of every other Spring feature in addition to this functionality. A high level overview of this request processing structure can be viewed below:
 
 ![Request Processing Workflow - Spring Web MVC DispatcherServlet](./../images/mvc.png)
 
 
-### Dispatcher Servlet and MVC
-The Spring Web Model-View-Controller (MVC) Framework is based on the use of a `DispatcherServlet`, which uses a `FrontController` design pattern. This `DispatcherServlet` routes requests to configurable handlers, view resolutions, and also provides support for uploading files. The default controller is based on the `@Controller` stereotype annotation, as well as the `@RequestMapping` annotation, both of which are detailed in the notes below.
+### Dispatcher Servlet(Front controller) and MVC
+The Spring Web Model-View-Controller (MVC) Framework is based on the use of a `DispatcherServlet`, which uses a ***FrontController design pattern***. This `DispatcherServlet` routes requests to configurable handlers, view ***resolutions***, and also provides support for ***uploading*** files. The default controller is based on the `@Controller` stereotype annotation, as well as the `@RequestMapping` annotation, both of which are detailed in the notes below.
 
 The `DispatcherServlet`, as you may guess, is an actual `Servlet`. As such, it must inherit it's functionality from the `HttpServlet` base class, and is declared in the _web.xml_ file of your application. Any requests you want the `DispatcherServlet` to handle must also be mapped in the same _web.xml_ file. As a reminder, Servlets require a top-level Servlet element in which servlet-name, servlet-class and other optional elements (such as load-on-startup) are nested. Request Mappings utilize the top-level servlet-mapping element with nested servlet-name and url-pattern elements
 
 For Example:
-```
+```xml
 <web-app>
     <servlet>
         <description>This is an optional description of this servlet. An example servlet</description>
@@ -38,12 +42,12 @@ In this example, all requests which start with _/example_ will be handled by the
 
 
 ### ViewResolvers and InternalResourceView
-Before Discussing annotations, it is worth briefly discussing how views are resolved. All Spring Web MVC controllers must resolve to a logical view name, either explicitly (for example, returning a String, View or ModelAndView) or implicitly (i.e. based on conventions). In Spring, these views are resolved by a view resolver using a logical view name. Spring has a number of view resolvers, though we will only breifly discuss a few (more information can be found in the [Spring Documentation](https://docs.spring.io/spring/docs/4.0.x/spring-framework-reference/html/mvc.html#mvc-viewresolver)):
+Before Discussing annotations, it is worth briefly discussing how views are resolved. All Spring Web MVC controllers must resolve to a logical view name, either explicitly (for example, returning a String, View or ModelAndView) or implicitly (i.e. based on conventions). In Spring, these views are resolved by a view resolver using a logical view name. Spring has a number of view ***resolvers***, though we will only breifly discuss a few (more information can be found in the [Spring Documentation](https://docs.spring.io/spring/docs/4.0.x/spring-framework-reference/html/mvc.html#mvc-viewresolver)):
 
-* AbstractCachingViewResolver: Abstract view resolver which, when extended, can cache views.
-* XmlViewResolver: Implementation of ViewResolver that accepts an XML configuration file with the same DTD as Spring’s XML bean factories. The default configuration file is /WEB-INF/views.xml.
-* UrlBasedViewResolver: Implementation of the ViewResolver which directly resolves view names to URLs, without an explicit mapping definition. Useful if if your logical names match the names of your views.
-* InternalResourceViewResolver: Subclass of UrlBasedViewResolver that supports InternalResourceView (such as Servlets and JSPs) and subclasses (such as JstlView and TilesView). View classes for all views generated by this resolver can be set using setViewClass(..) Method. See the [UrlBasedViewResolver javadocs](https://docs.spring.io/spring-framework/docs/4.0.x/javadoc-api/org/springframework/web/servlet/view/UrlBasedViewResolver.html) for more details.
+* ***AbstractCachingViewResolver***: Abstract view resolver which, when extended, can cache views.
+* ***XmlViewResolver***: Implementation of ViewResolver that accepts an XML configuration file with the same DTD as Spring’s XML bean factories. The default configuration file is /WEB-INF/views.xml.
+* ***UrlBasedViewResolver***: Implementation of the ViewResolver which directly resolves view names to URLs, without an explicit mapping definition. Useful if if your logical names match the names of your views.
+* ***InternalResourceViewResolver***: Subclass of UrlBasedViewResolver that supports InternalResourceView (such as Servlets and JSPs) and subclasses (such as JstlView and TilesView). View classes for all views generated by this resolver can be set using setViewClass(..) Method. See the [UrlBasedViewResolver javadocs](https://docs.spring.io/spring-framework/docs/4.0.x/javadoc-api/org/springframework/web/servlet/view/UrlBasedViewResolver.html) for more details.
 
 The `InternalResourceView` is a Wrapper class for JSP or other resources within the same web application. It can be used to expose model objects as request attributes and forward requests to a specified resource URL using the `RequestDispatcher`. In particular the `InteralResourceViewResolver` supports definitions for `InternalResourceView`s for a simple and straightforward resolution of `@Controller` class methods. 
 
@@ -57,7 +61,11 @@ For example:
 
 
 ### Spring Web Annotations
-As discussed in the [stereotype annotation lecture notes](../a-framework/stereotypes.md), the `@Controller` annotation specifies a class as a _controller_, a special type of bean used particularly to handle web application requests. The introduction of the `@Controller` annotation, as of Spring 3.0, allows for the creation of RESTful Web services and applications through the use of the `@PathVariable` annotation as well as other flexible features. The dispatcher will scan these `@Controller`-annotated and `@RequestMapping`-annotated classes and detect any `@RequestMapping`-annotated methods. Depending on the context, this `@RequestMapping` annotation can be configured with url mapping, http request method types, url values, and other parameters. 
+As discussed in the [stereotype annotation lecture notes](../a-framework/stereotypes.md), 
+###  `@Controller` 
+annotation specifies a class as a _controller_, a special type of bean used particularly to handle web ***application requests***. The introduction of the `@Controller` annotation, as of Spring 3.0, allows for the creation of RESTful Web services and applications through the use of the `@PathVariable` annotation as well as other flexible features. The dispatcher will scan these `@Controller`-annotated and 
+### `@RequestMapping`
+-annotated classes and detect any `@RequestMapping`-annotated methods. Depending on the context, this `@RequestMapping` annotation can be configured with url mapping, ***http request method types, url values, and other parameters***. 
 
 For example (Example from Spring Documentation):
 ```java
@@ -101,7 +109,7 @@ In this example, requests to the _AppointmentsController_ are indicated by the "
 
 Additionally, the special _redirect_ prefix used here allows for a `UrlBasedViewResolver` (and subclasses) to recognize that a redirect is needed, and may resolve the view using the logical name. When using this _redirect_ prefix supports both relative and absolute URLs:
 relative*:
-```
+```java
     return: "redirect:appointments/new";
 ```
 *We used a relative path above
@@ -113,10 +121,10 @@ absolute
 
 
 ### `@RequestBody`
-After defining a Request Mapping, there are a number of ways to detect and utilize variables sent with the request. For information within the body of the request, you should use `@RequestBody`, which allows Spring to map data from the body of a request to a defined java object.
+After defining a Request Mapping, there are a number of ways to detect and utilize variables sent with the request. For information within the body of the request, you should use `@RequestBody`, which allows Spring to ***map data from the body*** of a request to ***a defined java object***.
 
 REQUEST:
-```
+```java
 <form action="loginExample" method="POST">
 	<input type="text" name="username" value="Revature">
 	<input type="password" name="password" value="password">
@@ -125,7 +133,7 @@ REQUEST:
 ```
 
 LOGIN OBJECT:
-```
+```java
 public class LoginForm {
 	private String username;
 	private String password;
@@ -135,7 +143,7 @@ public class LoginForm {
 ```
 
 CONTROLLER:
-```
+```java
 @Controller("examplePost")
 public class ExampleController {
 
@@ -152,13 +160,14 @@ public class ExampleController {
 
 
 ### `@ResponseStatus`
-When a specific view is not returned, the logical name used is based on the value of the `@RequestMapping`, however you should still provide some response. The `@ResponseStatus` annotation marks a method or exception class with an HTTP response status code, as well as the reason that should be returned. These examples use this annotation primarily for debugging purposes, but this annotation can be useful when you do not expect to return a particular view from a controller.
+When a specific ***view is not returned***, the logical name used is based on the value of the `@RequestMapping`, however you should still provide some response. 
+*  `@ResponseStatus` annotation **marks** a ***method*** or ***exception*** class with an HTTP response status code, as well as the r***eason that should be returned***. These examples use this annotation primarily for debugging purposes, but this annotation can be useful when you do not expect to return a particular view from a controller.
 
 
 ### `@RequestParam`
-Alternatively the `@RequestParam` annotation should be used to bind request parameters to specific values in the mapped method's signature. You may specify values when using `@RequestParam` either using the name attribute, or simply with the name (or value) of the parameter.
+Alternatively the `@RequestParam` annotation should be used to bind request parameters to specific values in the mapped method's signature. You may specify values when using `@RequestParam` either using the ***name attribute***, or simply with the name (or value) of the parameter.
 REQUEST:
-```
+```java
 <form action="loginExample" method="POST">
 	<input type="text" name="username" value="Revature">
 	<input type="password" name="password" value="password">
@@ -181,19 +190,21 @@ public class ExampleController {
 }
 ```
 
-The `@RequestParam` annotation also has a `required` attribute which dictates whether the specified parameter must be present for the request to complete. By default, this parameter is set to true, but can be optionally set to false:
-`@RequestParam(name="id", required="false")`. Note that all of these examples could be expressed with the value attribute instead of the name attribute, which is functionally the same: `@RequestParam(value="id", required="false")`.
+`@RequestParam` annotation also has a ***required*** attribute which dictates whether the ***specified parameter must be present*** for the request to complete. By default, this parameter is set to true, but can be optionally set to false:
+`@RequestParam(name="id", required="false")`. Note that all of these examples could be expressed with the value attribute instead of the name attribute, which is functionally the same: 
+```java
+@RequestParam(value="id", required="false")
+```
 
 
 ### `@PathVariable`
 Finally, the `@PathVariable` annotation can identify properties directly within the URL of a request for use within a method. To map the url parameter, the parameter should be enclosed in curly braces within the RequestMapping value and the name should match the method parameter:
 
 CONTROLLER:
-```
+```java
 @Controller
 public class LibraryController {
 	...
-
 	@RequestMapping(value="/library/{bookISBN}", method=RequestMethod.GET)
 	public String getBookName(@PathVariable int bookISBN) {
 		switch (bookISBN) {
@@ -234,10 +245,10 @@ public void displayHeaderInfo(@RequestHeader("Accept-Encoding") String encoding,
 
 
 ### `@ResponseBody`
-Configuration for responding to Requests can also be simplified with the Spring MVC Framework through the use of the `@ResponseBody` annotation. This annotation can be used to automatically marshal java objects into a JSON String.
+Configuration for responding to Requests can also be simplified with the Spring MVC Framework through the use of the `@ResponseBody` annotation. This annotation can be used to ***automatically marshal java objects into a JSON String***.
 
 CONTROLLER:
-```
+```java
 @Controller
 public class LibraryController {
 	@Autowired
@@ -254,7 +265,7 @@ public class LibraryController {
 This method would return a list of Book Objects as a JSON string, allowing the response to be parsed and displayed on a webpage.
 
 
-### `@RestController`
+### `@RestController` = `@Controller` + `@ResponseBody`
 Commonly, Spring Web Controllers implement a REST API, thus serving JSON, XML or custom MediaType content. As such, the `@RestController` annotation is a convenience stereotype annotation which combines the features of `@Controller` with the `@ResponseBody` annotations. This allows the use of HTTP method specific Mapping annotations which automatically produce an XML, JSON or other response.
 
 CONTROLLER:
