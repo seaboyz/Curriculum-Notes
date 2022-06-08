@@ -10,18 +10,30 @@ https://www.baeldung.com/inversion-control-and-dependency-injection-in-spring
 
 
 ## Inversion of Control
-Inversion of Control is a design principle in which control over certain parts of object-oriented design is inverted to achieve loose coupling. An simple way to think of this would be to Suppose a user has a car and drives to work each day. Currently, the user is in control of the car. However, if the user schedules an uber instead, the control is inverted from the user to the uber driver, allowing the user to focus on other tasks while still allowing the car to ultimately be driven to work.
+Inversion of Control is a ***design principle*** in which ***control*** over certain parts of object-oriented design is ***inverted*** to achieve ***loose coupling***. 
+* An simple way to think of this would be to Suppose a ***user*** has a ***car*** and drives to work each day. Currently, the user is in control of the car. However, if the user ***schedules*** an uber instead, the control is inverted from the user to the uber driver, allowing the user to focus on other tasks while still allowing the car to ultimately be driven to work.
 
-In Spring, the IoC Container is responsible for instantiating, configuring and assembling objects known as beans. It does this by getting information from the XML file and assembling the objects accordingly. In Spring there are two types of IoC Containers, the BeanFactory and Application context, which is built out of the Bean factory. More information on BeanFactory, ApplicationContext and Beans can be found in the [configuration lecture notes](./xml-vs-annotation-configuration.md).
+In Spring, the ***IoC Container*** is responsible for ***instantiating***, ***configuring*** and ***assembling*** objects known as ***beans***. It does this by getting information from the ***XML file*** or annotations and assembling the objects accordingly. In Spring there are two types of IoC Containers, the ***BeanFactory*** and*** Application context***, which is built out of the Bean factory. More information on BeanFactory, ApplicationContext and Beans can be found in the [configuration lecture notes](./xml-vs-annotation-configuration.md).
 
-The ApplicationContext interface is built on top of the BeanFactory with extra functionality, such as simple integration with Spring AOP, event propagation, message resource handling, and application layer specific context (such as WebApplicationContext for web applications).
+The ***ApplicationContext*** interface is built on top of the ***BeanFactory*** with ***extra functionality***, such as simple integration with Spring AOP, event propagation, message resource handling, and application layer specific context (such as WebApplicationContext for web applications).
+***ApplicationContext = BeanFactory + Spring AOP + event + messaging + WebApplicationContext***
 
 ## Dependency Injection
-Fundamentally, every framework implements at least some level of Inversion of Control. Dependency Injection is a more specific term for what control is inverted with regard to the Spring Framework. As the name suggests, Dependency Injection is a design patters that removes dependencies of a program by providing the configuration in an external source, such as an XML file. This loosely coupled design then makes code easier to test, and implement in a wider variety of environments.
+* Fundamentally, every framework implements at least some level of Inversion of Control. 
+  * Callback
+  * Pubsub
+  * Promise(when success do sth, when fail do sth)
+  * React useEffect hook (pass callbacks and dependency to useEffct, let it evoke the callbacks, when state of the dependency changes)
+* ***Dependency Injection is a more specific term for what control is inverted with regard to the Spring Framework.*** As the name suggests, Dependency Injection is a design patters that removes dependencies of a program by ***providing the configuration*** in an ***external source***, such as an ***XML file*** and ***anotations*** This loosely ***coupled design*** then makes code easier to test, and implement in a wider variety of environments.(like smart light, all the smart thing, it does not required to hard connected to the signal cord, increase the fexibility and changability)
 
 Dependency Injection can occur through the following methods:
+
 * Constructor Injection: Dependency Injection accomplished when the container invokes a constructor with arguments to instantiate a bean in which each argument of said constructor represents a dependency.
+![](../images/constructor-injection.png)
 * Setter Injection: Dependency Injection accomplished when the container calls setter methods on a bean after invoking a no-argument constructor to instatiate a bean.
+![](../images/setter-injection.png)
+* Filed Injection
+![](../images/filed-injection.png)
 
 ### Constructor Injection Examples
 __XML Configuration__
