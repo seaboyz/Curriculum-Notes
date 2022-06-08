@@ -3,23 +3,24 @@ At this point, we have already utilized the Data Access Object (DAO) Layer to ha
 
 The Spring Data module takes this simplification one step further by providing ***standard implementation for common DAO methods allowing for the removal of the DAO implementation and only requiring the definition of the DAO interface methods***.
 
-In order to leverage the Sping Data programming model with JPA, a DAO interface should extend the Spring ***JpaRepository*** interface from the `org.springframework.data.jpa.repository` package. Note that it is possible to create a basic CRUD application by extending the spring _CrudRepository_ interface (from the `org.springframework.data.repository` package), though this only ***provides an interface for generic CRUD operations*** on a repository, and ***does not leverage the JPA.***
+## JpaRepository
+* In order to leverage the Sping Data programming model with JPA, a DAO interface should extend the Spring ***JpaRepository*** interface from the `org.springframework.data.jpa.repository` package. Note that it is possible to create a basic CRUD application by extending the spring _CrudRepository_ interface (from the `org.springframework.data.repository` package), though this only ***provides an interface for generic CRUD operations*** on a repository, and ***does not leverage the JPA.***
 
 ![Spring JPA Repository Hierarchy](../images/spring-data-jpa-hierachy.webp)
 
-Implementation of the Spring _JpaRepository_ provides the following:
-* Sophisticated support to build repositories based on Spring and JPA
-* Support for QueryDSL predicates and thus type-safe JPA queries 
+* Implementation of the Spring _JpaRepository_ provides the following:
+  * Sophisticated support to build repositories based on Spring and JPA
+  * Support for QueryDSL predicates and thus type-safe JPA queries 
   * QueryDSL is a framework which enables statically typed SQL-like queries, instead of requiring inline string queries or external XML files.
-* Transparent auditing of Domain class
-* Pagination (sequential numbering) support
-* Dynamic query execution
-* Support for integration of custom data access code
-* Validation of `@Query` annotated queries during bootstrapping
-* Support for XML based entity mapping
-* JavaConfig based repository configuration by introducing `@EnableJpaRepositories`
+  * Transparent auditing of Domain class
+  * Pagination (sequential numbering) support
+  * Dynamic query execution
+  * Support for integration of custom data access code
+  * Validation of `@Query` annotated queries during bootstrapping
+  * Support for XML based entity mapping
+  * JavaConfig based repository configuration by introducing `@EnableJpaRepositories`
 
-# Spring Data Annotations
+## Spring Data Annotations
 
 This page is a brief overview of the some of the Spring Data annotations. Please see the reference links for the official documentation
 
@@ -36,9 +37,9 @@ Spring Data abstracts away the code required for data storage solutions, allowin
 | @Transactional                  | Configure how the database transaction behaves. See the @Transactional notes.             |
 | @NoRepositoryBean               | Creates and interface that provides common methods for child repositories                 |
 | @Param                          | Parameters can be passed to queries defined with @Query                                   |
-| @Id                             | Marks a field in a model class as the primary key                                         |
-| @Transient                      | Mark a field as transient, to be ignored by the data store engine during reads and writes |
-| @CreatedBy, @LastModifiedBy     | Auditing annotations that will automatically filled with the current principal            |
+| @Id                             | Marks a field in a model class as the ***primary*** key                                         |
+| @Transient                      | Mark a field as transient, to be ***ignored by the data store engine*** during reads and writes |
+| @***CreatedBy***, @***LastModifiedBy***     | Auditing annotations that will automatically filled with the ***who created the object***           |
 | @CreatedDate, @LastModifiedDate | Auditing annotations that will automatically fill with current date                       |
 | @Query                          | Supply a JPQL query for repository methods                                                |
 
@@ -132,7 +133,7 @@ Lets examine an example. First create a Spring project with the following depend
 * H2 Database
 
 If you choose to use Maven, the `pom.xml` file should look similar to this:
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -188,7 +189,7 @@ If you choose to use Maven, the `pom.xml` file should look similar to this:
 ```
 
 If you choose to use Gradle, the `build.gradle` file should look similar to this:
-```
+```properties
 plugins {
     id 'org.springframework.boot' version '2.1.6.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
@@ -215,8 +216,11 @@ test {
 }
 ```
 
+### @Entity
+* Entities in JPA are nothing but ***POJOs*** representing data ***that can be persisted to the database***. An entity ***represents a table*** stored in a database. ***Every instance of an entity*** represents a row in the table.
+
 Next, we must define a simple entity as a standard Bean. In this example, we will have a _Customer_ object associated with a _Customer_ table.
-```
+```java
 package com.revature.models;
 
 import javax.persistence.Entity;
@@ -275,10 +279,10 @@ public class Customer {
 }
 ```
 
-Note that we have two constructors, the default no-args constructor exists for the sake of the JPA, and as such we will not use it directly. Instead, we will utilize the parameterized constructor to create instances of _Customer_ objects to be saved to the database.
+Note that we have two constructors, the default ***no-args constructor exists for the sake of the JPA,*** and as such we will not use it directly. Instead, we will utilize the ***parameterized constructor*** to create instances of _Customer_ objects to be saved to the ***database***.
 
 Next, we create our repository interface:
-```
+```java
 package com.revature.repository;
 
 import java.util.List;
@@ -299,7 +303,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 ```
 
 Next, lets create a simple controller which we will use to interface with our application
-```
+```java
 package com.revature.controllers;
 
 import java.util.List;
@@ -344,10 +348,10 @@ public class CustomerController {
 }
 ```
 
-Note that this controller references a `findAll()` and `save()` method on our customerRepository though we have not defined these. These methods are already predefined in the JpaRepository Interface, so the only definitions we need to provide are ones which match properties of our Customer model object. A list of JPA methods can be [found here](https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html).
+Note that this controller references a `findAll()` and `save()` method on our customerRepository though we have not defined these. These methods are already ***predefined*** in the ***JpaRepository*** Interface, so the only definitions we need to provide are ones which match properties of our Customer model object. A list of JPA methods can be [found here](https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html).
 
 Make sure you configure your `application.properties` file:
-```
+```properties
 #Configure DB connection
 spring.h2.console.enabled=true
 spring.datasource.platform=h2
@@ -359,7 +363,7 @@ server.servlet.context-path=/customer
 ```
 
 Finally, create the application class:
-```
+```java
 package com.revature;
 
 import org.springframework.boot.SpringApplication;
@@ -376,7 +380,7 @@ public class JpaDemoApplication {
 ```
 
 At this point you can add customers using postman to send `GET` and `POST` requests to save and retrieve customer data. If you would like to produce custom queries, you can do so using the `@Query` annotation in your repository interface. For example:
-```
+```java
 @Query("SELECT c FROM Customer c WHERE c.status = 1")
 List<Customer> findAllActiveCustomers();
 ```
@@ -385,8 +389,8 @@ Here, we specify a "status" property for our class and utilize this to track "ac
 
 Though the actual implementation of the Spring Data managed DAO is hidden (as we don't work with it directly) it is a simple enough implementation. In fact, Spring JPA provides a _SimpleJpaRepository_ interface, which extends the JpaRepository, that defines transaction semantics using annotations. Specifically, a read-only `@Transactional` annotation is used at the class level, which is then overridden for the nonread-only methods. The rest of the transaction semantics are default, but can easily be overridden manually on a per-method basis.
 
-# JPQL Queries
-JPQL is a SQL-like scripting language used by Spring JPA. Very similar to the prepared statements we used with JDBC code, JPQL can be parameterized. We basically write a JPQL template with variables inside, and then parameterize those variables before the query is executed. We can parameterize the template with indices or names, but we cannot do both in a single query. We must choose.
+## JPQL Queries
+JPQL is a ***SQL-like scripting language*** used by Spring JPA. Very similar to the prepared statements we used with JDBC code, JPQL can be parameterized. We basically write a JPQL template with variables inside, and then parameterize those variables before the query is executed. We can parameterize the template with indices or names, but we cannot do both in a single query. We must choose.
 
 ```java
 @Query("SELECT u FROM User u WHERE u.status = :status and u.name = :name")
