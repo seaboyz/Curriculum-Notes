@@ -29,6 +29,8 @@ With regard to Spring Beans, there are six scopes, four of which can only be by 
 
 It is also worth noting that(here's something, which you should remember:" ), unlike the other scopes, Spring does not manage the complete lifecycle of beans within the prototype scope. The container will still instantiate, configure and assemble the prototype bean object, but at that point will hand this prototype off to the client, with no other records of the prototyped instance. As such, with regard to bean lifecycles, all initialization callback methods are called on every bean, regardless of scope, the same cannot be said for the destruction lifecycle callbacks.
 
+
+
 ### [Request Scope](https://docs.spring.io/spring/docs/4.0.x/spring-framework-reference/html/beans.html#beans-factory-scopes-request)
 For the Request scope, the Spring IoC Container will create ***a new instance of a bean***, based on the associated bean definition for every HTTP request recieved. These beans are particular to individual requests, ***so when the request completes, the associated bean within the request scope will be discarded***.
 
@@ -36,17 +38,17 @@ For the Request scope, the Spring IoC Container will create ***a new instance of
 For the Session scope, the Spring IoC container will ***create a new instance of a bean***, based on the associated bean definition, each time a ***particular HTTP Session is created. When the session eventually ends, the associated bean will be discarded along with it***.
 
 ### [Global Session Scope](https://docs.spring.io/spring/docs/4.0.x/spring-framework-reference/html/beans.html#beans-factory-scopes-global-session)
-For the Global Session scope, similarly to the previous definitions, will create a bean, however, this applies only with regard to portlet-based web applications. The portlet defines the global Session that is shared among all portlets, and the IoC Container uses this global session definition to scope Beans described at the global session level. These beans are similarly discarded when the associated global portlet session concludes.
+For the Global Session scope, similarly to the previous definitions, ***will create a bean***, however, this applies only with regard to ***portlet-based*** web applications. The portlet defines the global Session that is shared among all portlets, and the IoC Container uses this global session definition to scope Beans described at the global session level. These beans are similarly discarded when the associated global portlet session concludes.
 
-Note if you attempt to use the `Request`, `Session`, and `Global Session` scope within a regular Spring IoC container (such as the ClassPathXmlApplicationContext), you will get an IllegalStateException regarding an unknown bean scope.
+Note if you attempt to use the `Request`, `Session`, and `Global Session` scope within a ***regular Spring IoC*** container (such as the ClassPathXmlApplicationContext), you will get an IllegalStateException regarding an unknown bean scope.
 
 ### [Application Scope](https://docs.spring.io/spring/docs/4.0.x/spring-framework-reference/html/beans.html#beans-factory-scopes-application)
-Within an Application Scope, a Spring IoC Container will create a new instance of the bean based on the associated bean definition once for the entire web application. This is similar to a singleton bean, but has two important differences.
-1. An application scope bean is a singleton for each ServletContext _not_ for each Spring _ApplicationContext_
+Within an Application Scope, a Spring IoC Container will create a new instance of the bean based on the associated bean definition once for the ***entire web application***. This is similar to a singleton bean, but has two important differences.
+1. An application scope bean is a singleton for each ***ServletContext*** ***_not_ for each Spring _ApplicationContext_***
 1. Beans within the application scope are visible within the ServletContext meaning they can be used as an attribute for `ServletContext`
 
 XML:
-```
+```xml
 <!-- The following is redundant since the singleton scope is the implicit behavior -->
 <bean id="exampleBean" class="com.revature.example.ExampleBean" scope="singleton"/>
 
@@ -58,7 +60,7 @@ XML:
 
 
 Annotation:
-```
+```java
 @Configuration
 public class AppConfig {
 
@@ -83,36 +85,36 @@ The above details the common recognized scopes, the bean scoping mechanism is ex
 
 To create your own custom scope you must implement the [`org.springframework.beans.factory.config.Scope` interface](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/config/Scope.html). This interfacce has four methods used to get and remove objects from the scope as well as register the object for later destruction. The method signatures are:
 
-```
+```java
 Object get(String name, ObjectFactory objectFactory)
 ```
-This method returns the object from the underlying scope. For instance, a bean in the session scope would return that session-scoped bean, and if it does not already exist, will create a new instance of the bean after binding it to the session.
+This method ***returns*** the object from the underlying scope. For instance, a bean in the session scope would return that session-scoped bean, and if it does not already exist, will create a new instance of the bean after binding it to the session.
 
-```
+```java
 Object remove(String name)
 ```
-This method removes an object from an underlying scope and return that object. For instance, in the previous example, this would remove the session-scoped bean from the associated session. This method should return null of the specified bean name cannot be found.
+This method ***removes*** an object from an underlying scope and return that object. For instance, in the previous example, this would remove the session-scoped bean from the associated session. This method should return null of the specified bean name cannot be found.
 
-```
+```java
 void registerDestructionCallback(String name, Runnable destructionCallback)
 ```
-This method registers the destruction callback methods for the specified object when it is to be destroyed.
+This method ***registers*** the destruction callback methods for the specified object when it is to be destroyed.
 
-```
+```java
 String getConversationId()
 ```
-This method should return a particular identifier used for the object. Each scope utilized a different identification method. For instance, session scope implementations may use the session identifier.
+This method should ***return*** a particular identifier used for the object. Each scope utilized a different identification method. For instance, session scope implementations may use the session identifier.
 
 After creation of a custom scope, you will need to make Spring aware of the implementation. To do so, you must invoke the following method from the `ConfigurableBeanFactory` interface, which is available on most standard ApplicationContext implmentations:
 
-```
+```java
 void registerScope(String scopeName, Scope scope);
 ```
 Here, the first argument is a unique name associated with the custom scope. The second argument should be an actual instance of the custom scope imlpementation.
 
 For example:
 
-```
+```java
 Scope revatureScope = new RevatureSpringScope();
 beanFactory.registerScope("revScope", revatureScope);
 ```
@@ -125,7 +127,7 @@ XML:
 ```
 
 Annotation:
-```
+```java
 @Configuration
 public class AppConfig {
 
