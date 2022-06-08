@@ -55,8 +55,8 @@ The following is a visualization of this lifecycle:
 
 Specifically the lifecycle of a Spring Bean in an application context, pursuant to the associated interface methods is as follows:
 #### Instantiation
- - Instantiate Bean
- - Populate bean properties
+ - ***Instantiate Bean***
+ - ***Populate bean properties***
 
 #### Awareness - Related Interfaces are made aware. This includes:
 - [BeanNameAware's setBeanName](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/BeanNameAware.html) - Informs Bean Factory of Bean Name
@@ -72,12 +72,12 @@ Specifically the lifecycle of a Spring Bean in an application context, pursuant 
    - [ServletContextAware's setServletContext (Specifically only applicable when running in a __web application context__)](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/context/ServletContextAware.html)
 
 #### Initialization
-- [postProcessBeforeInitialization methods of BeanPostProcessors](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/config/BeanPostProcessor.html#postProcessBeforeInitialization-java.lang.Object-java.lang.String-) - Method called before bean initialization callback methods are invoked, but after bean has been populated with property values.
-- [InitializingBean's afterPropertiesSet](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/InitializingBean.html#afterPropertiesSet--) - Method invoked by the owner bean factory after all bean properties have been set and satisfied Aware methods (BeanFactoryAware, ApplicationContextAware, etc...)
+- [postProcessBeforeInitialization methods of BeanPostProcessors](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/config/BeanPostProcessor.html#postProcessBeforeInitialization-java.lang.Object-java.lang.String-) - Method called before bean initialization callback methods are invoked, but after bean has been ***populated with property values***.
+- [InitializingBean's afterPropertiesSet](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/InitializingBean.html#afterPropertiesSet--) - Method invoked by the owner bean factory after all bean properties have been set and satisfied Aware methods (***BeanFactoryAware***, ***ApplicationContextAware***, etc...)
 - [Custom init-method definition] - Custom Defined init method. Signature is `public void init()`. This method is detected by the [getInitMethodName Method](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/support/AbstractBeanDefinition.html#getInitMethodName--)
 - [postProcessAfterInitialization methods of BeanPostProcessors](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/config/BeanPostProcessor.html#postProcessBeforeInitialization-java.lang.Object-java.lang.String-) - Callback which allows post processor to decide whether to apply either the FactoryBean, created object or both through corresponding instanceof FactoryBean checks.
 
-#### In-use
+#### In-Use
 - Bean is ready for use.
 
 #### On shutdown of a bean factory (or destruction of a bean), the following lifecycle methods apply:
@@ -89,19 +89,30 @@ It is worth nothing that Spring does not manage this entire lifecycle for all Be
 
 
 # Component Scanning Stereotypes
-@Bean is used to annotate methods which return objects which Spring will manage as a bean. @Component is used to annotate classes which Spring will scan in order to define beans.
+## @Bean vs @Component
+![](/notes/images/@Bean-@Compnent.png)
+
+## @Bean 
+is used to ***annotate*** ***methods*** which return objects which Spring will ***manage as a bean***. 
+### Bean is a key concept of the Spring Framework.
+### Definition
+* In Spring, the objects that form the backbone of your application and that are managed by the Spring IoC container are called beans. 
+* A bean is an object that is instantiated, assembled, and otherwise managed by a Spring IoC container.
+### Inversion of Control
+* 
 
 ## @Component
+@Component is used to ***annotate classes*** which Spring will ***scan*** in order to define beans.
 This is the basic annotation that allows Spring to detect our beans with component scanning. The other three are derived from this one. Marking a class with @Component or another stereotype annotation, and including that class in component scanning will cause Spring to create beans from that class in accordance with your description of a bean. You can describe other bean behaviors with annotations, things like @Scope and @Lazy.
 
 
-## @Repository
+* ### @Repository
 Indicates this component is a repository, "a mechanism for encapsulating storage, retrieval, and search behavior which emulates a collection of objects." -Domain-Driven Design (Evans, 2003)  
 The `@Repository` annotation marks a class for use with storing data within a repository or database. Specifically, the `@Repository` annotation provides benefits for objects that would otherwise be utilized as a Data Access Object (DAO).
-## @Service
+* ### @Service
 Indicates this component is a service, "an operation offered as an interface that stands alone in the model, with no encapsulated state." -Domain-Driven Design (Evans, 2003)
 
-## @Controller
+* ### @Controller
 Indicates this component is an MVC controller, which handles requests and responses. Frequently used in combination with @RequestMapping.
 The `@Controller` annotation marks a class as a Spring MVC Controller which allow the use of handlder mapping annotations. Classes annotated with `@Controller` are autodeteced through classpath scanning, and when used in comination with `@RequestMapping`, allows for quick configurations of a web application controller.
 
