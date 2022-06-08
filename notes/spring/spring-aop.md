@@ -1,15 +1,32 @@
 # Aspect Oriented Programming
+## problem to solve
+* Too many relationships to the crosscutting object
+* code is still required inthe methods
+* cannot all be changed at once
+
+## Cross Cutting Concerns
+* In Aspect Oriented Programming, the key component are ***aspects***, which ***modularizes particular transactional concerns*** which can present across multiple classes, known as _cross-cutting concerns_.
+* Logging
+* Transaction Management
+* Security
+* Exception Handling
 
 ## Aspect Oriented Programming and Cross Cutting Concerns
-Aspect Oriented Programming is another way to think about structuring your program, which can be used complementary to Object Oriented Programming. In object oriented programming, classes are used as the key component used to drive the creation of objects, which serve the purpose of representing concrete ideas or things with states and behaviors. In Aspect Oriented Programming, the key component are aspects, which modularizes particular transactional concerns which can present across multiple classes, known as _cross-cutting concerns_. Examples of these concerns are, Database Access (security for a database), data entities (transactions to take place), error handling, or logging system messages. The defining characteristic of these _cross-cutting concerns_ is that they are actions that can take place across your classes, regardless of the class function or structure. In traditional object oriented programming, this would result in code redundancy, as the same code must be called multiple times throughout an application to perform these actions. Aspect Oriented Programming works to eliminate this redundancy by transferring responsibility of these common problems to aspects. Note that the Spring IoC Container is not dependent on AOP; however, the Spring AOP framework complements the IoC Container by providing a capable middleware solution for concerns.
+Aspect Oriented Programming is another way to think about structuring your program, which can be used complementary to Object Oriented Programming. In ***object oriented programming***, classes are used as the key component used to drive the creation of objects, which serve the purpose of representing concrete ideas or ***things with states and behaviors***. 
+In Aspect Oriented Programming, the key component are ***aspects***, which ***modularizes particular transactional concerns*** which can present across multiple classes, known as _cross-cutting concerns_.
+ Examples of these concerns are, Database Access (security for a database), data entities (transactions to take place), error handling, or logging system messages. The defining characteristic of these _cross-cutting concerns_ is that they are actions that can take place across your classes, regardless of the class function or structure. In traditional object oriented programming, this would result in code redundancy, as the same code must be called multiple times throughout an application to perform these actions. ***Aspect Oriented Programming works to eliminate this redundancy by transferring responsibility of these common problems to aspects***. Note that the Spring IoC Container is not dependent on AOP; however, the Spring AOP framework complements the IoC Container by providing a capable middleware solution for concerns.
 
 ### Important Terminology
-* _Aspect_ - A representation of a concern which cuts across multiple classes.
-* _Weaving_ - The process of linking aspects with other objects, such as beans, to create advised objects. This can be done at compile time (such as when using the AspectJ compiler), load time or runtime. Spring performs weaving at Runtime.
-* _Join Point_ - A specified moment during the execution of a program, such as the invocation of a method, in which actions can be taken.
-* _Advice _ - Action taken by an aspect at a specified Join point. 
-* _Pointcut_ - A definition of which methods in our application advice ought to be injected into or around, for example, when a method of a certain name is executed. By default, spring uses AspectJ pointcut expression language.
-* _Introduction_ - Declaration of new interfaces and corresponding implementations in subclasses of any advised object. Introductions use the `@DeclareParents` annotation with the _defaultImpl_ attribute to define a default concrete class for the bean definition. For Example:
+* ***_Aspect_*** (***functionality***) - A representation of a concern which cuts across multiple classes.
+  * logging aspect
+  * transaction aspect
+  * aspect configuration
+  * componentWillUnmount() in react
+* ***_Weaving_*** - The process of linking aspects with other objects, such as beans, to create advised objects. This can be done at compile time (such as when using the AspectJ compiler), load time or runtime. Spring performs weaving at Runtime.
+* ***_Join Point_***- A specified moment during the execution of a program, such as the invocation of a method, in which actions can be taken.
+* ***_Advice_*** - Action taken by an aspect at a specified Join point. 
+* ***_Pointcut_*** - A definition of which methods in our application advice ought to be injected into or around, for example, when a method of a certain name is executed. By default, spring uses AspectJ pointcut expression language.
+* ***_Introduction_*** - Declaration of new interfaces and corresponding implementations in subclasses of any advised object. Introductions use the `@DeclareParents` annotation with the _defaultImpl_ attribute to define a default concrete class for the bean definition. For Example:
 
 __IFunction Interface__:
 ```java
