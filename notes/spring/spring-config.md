@@ -5,11 +5,16 @@ This page details XML-based and Annotation-based configurations for the Applicat
 
 
 ## Bean Factory & Application Context
-The Spring [Bean Factory](https://docs.spring.io/spring/docs/4.0.x/javadoc-api/org/springframework/beans/factory/BeanFactory.html) interface establishes the underlying basis for the Spring IoC Container functionality by providing advanced configurations capable of managing any type of object. The ApplicationContext is a sub-interface of the BeanFactory interface which adds easier integration with Spring's AOP features. This ApplicationContext represents the Spring IoC container as it is responsible for the instantiation, assembly and management of "beans". These "Beans", are the term used for objects created in Spring which form the backbone of an application. Though they are created and managed by the IoC Container, they are otherwise just a type of object in an application. When bean objects have certain dependencies, these are reflected within configuration metadata used by the container.
+The Spring [Bean Factory](https://docs.spring.io/spring/docs/4.0.x/javadoc-api/org/springframework/beans/factory/BeanFactory.html) interface establishes the underlying basis for the ***Spring IoC Container functionality*** by providing advanced ***configurations*** capable of managing any type of object. 
+The ApplicationContext is a ***sub-interface*** of the BeanFactory interface which adds easier integration with Spring's AOP features. 
+This ApplicationContext represents the Spring IoC container as it is responsible for the instantiation, assembly and management of "beans". These "***Beans***", are the term used for ***objects created in Spring which form the backbone of an application.*** Though they are created and managed by the IoC Container, they are otherwise just a type of ***object*** in an application. When bean objects have certain ***dependencies***, these are ***reflected within configuration metadata*** used by the container.
 
-In other words, the BeanFactory provides the configuration framework and basic functionality, and the ApplicationContext adds more enterprise-specific functionality for to the creation and management of objects in the Spring framework.
+In other words, the ***BeanFactory*** provides the ***configuration*** framework and basic functionality, and the ***ApplicationContext*** adds more ***enterprise-specific functionality*** for to the creation and management of objects in the Spring framework.
 
-With regard to the configuration metadata, there are three ways this configuration can be represented, through XML, Java annotation or Java Code.
+With regard to the ***configuration*** metadata, there are three ways this configuration can be represented, through 
+* XML, 
+* Java annotation
+* Java Code.
 
 The following image displays a high-level representation of how Spring works:
 
@@ -17,11 +22,12 @@ The following image displays a high-level representation of how Spring works:
 
 The application classes are combined with configuration data when the ApplicationContext is created and initialized, which produces a fully configured application, or system.
 
-It is worth noting that the BeanFactory instantiates beans lazily (creating beans only when required), while ApplicationContext instantiates beans eagerly (once the bean becomes relevant, and may potentially be used).
+* BeanFactory instantiates beans lazily (creating beans only when required), 
+* while ApplicationContext instantiates beans eagerly (once the bean becomes relevant, and may potentially be used).
 
 ## XML Configuration
-XML configuration consists of the declaration of at least one <bean/> element nested inside a top-level <beans/> element. These bean definitions correspond to actual objects within your application, and typically relate to server layer, data access (DAO), infrastructure objects (such as hibernate SessionFactories), or presentation objects (such as Struts Action instances). The following code is an example of a basic bean configuration using XML:
-```
+XML configuration consists of the ***declaration of at least one element nested inside a top-level element***. These bean definitions correspond to actual objects within your application, and typically relate to server layer, data access (DAO), infrastructure objects (such as hibernate SessionFactories), or presentation objects (such as Struts Action instances). The following code is an example of a basic bean configuration using XML:
+```xml
 <!-- This XML file defines service beans and is named 'services.xml' -->
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
@@ -50,7 +56,7 @@ XML configuration consists of the declaration of at least one <bean/> element ne
 </beans>
 ```
 
-```
+```xml
 <!-- This XML file defines DAO beans and is named 'daos.xml' -->
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
@@ -75,25 +81,28 @@ XML configuration consists of the declaration of at least one <bean/> element ne
 </beans>
 ```
 
-Here, the id attribute is a string used to identify specific bean definitions, while the class attribute defines the type of bean using the fully qualified class name. Note that you can substitute the id attribute with the name attribute if you would like to provide multiple aliases for a bean.
+Here, the 
+* ***id attribute*** is a string used to identify specific bean definitions 
+* ***class attribute*** defines the type of bean using the fully qualified class name.
+* Note that you can substitute the id attribute with the ***name attribute*** if you would like to provide multiple ***aliases*** for a bean.
 
 To instantiate a Spring IoC container using this XML configuration, the location path or paths should be supplied to an ApplicationContext Constructor. For XML configurations the ApplicationContext object should be derived from the [ClassPathXmlApplicationContext](https://docs.spring.io/spring/docs/4.0.x/javadoc-api/org/springframework/context/support/ClassPathXmlApplicationContext.html) class:
 
-```
+```java
 // Single XML Path File
 ApplicationContext context = new ClassPathXmlApplicationContext(new String ("services.xml"));
 ```
 
-```
+```java
 // Multiple XML Path Files
 ApplicationContext context = new ClassPathXmlApplicationContext(new String[] {"services.xml", "daos.xml"});
 ```
 
 ## Annotation Configuration
-Annotation configuration, introduced as of Spring 2.5, serves as an alternative to XML-based setups, and rely on the use of annotations and bytecode metadata to wire components as opposed to the used of angle-bracket element declarations. Utilization of annotation based configuration still requires the use of an ApplicationContext XML file; however, the bean configurations are separated from this XML file into the component class files themselves and are defined using relevant annotations on the class, method or field declaration. 
+Annotation configuration, introduced as of Spring 2.5, serves as an alternative to XML-based setups, and rely on the use of ***annotations*** and ***bytecode metadata*** to wire components as opposed to the used of angle-bracket element declarations. Utilization of annotation based configuration still requires the use of an ApplicationContext XML file; however, the bean configurations are separated from this XML file into the component class files themselves and are defined using relevant annotations on the class, method or field declaration. 
 
 To use annotation configuration the context tag will be required within the ApplicationContext configuration file. This element enables the use of annotations which is, by default, turned off. Additionally, you will need to include the xml namespace "context". For Example:
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -120,10 +129,11 @@ To use annotation configuration the context tag will be required within the Appl
 </beans>
 ```
 
-To properly configure beans, use of the `@Autowired` annotation should be used. This annotation injects beans based on their type, and it commonly used with singleton bean design patterns.
+
+To properly configure beans, use of the ***`@Autowired`*** annotation should be used. This annotation ***injects*** beans based on their type, and it ***commonly*** used with ***singleton*** bean design patterns.
 
 `@Autowired` [Property]
-```
+```java
 package com.revature.models;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -146,7 +156,7 @@ public class Order {
 ```
 
 `@Autowired` [Setter]
-```
+```java
 package com.revature.models;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -166,7 +176,7 @@ public class Order {
 ```
 
 `@Autowired` [Constructor]
-```
+```java
 package com.revature.models;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -193,10 +203,14 @@ public class Order {
 }
 ```
 
-If multiple bean definitions exist for a particular object type the `@Resource` or `@Qualifier` annotations can disambiguate the bean. `@Resource` is a standard Java annotation which injects beans based on name, rather than type. The `@Qualifier` annotation specifies a particular `@Autowired`-annotated bean based on the bean's identifier (the bean name). As such, the `@Qualifier` annotation is a Spring annotation:
+If multiple bean definitions exist for a particular object type the `@Resource` or `@Qualifier` annotations can disambiguate the bean. 
+
+* `@Resource` is a standard Java annotation which injects beans based on ***name***, rather than type. 
+  
+* The `@Qualifier` annotation specifies a particular `@Autowired`-annotated bean based on the bean's identifier (the bean name). As such, the `@Qualifier` annotation is a Spring annotation:
 
 `@Resource`
-```
+```java
 	@Resource("item_one") // if multiple items exist...
 	public void setItem(Item item) {
 		this.item = item;
@@ -204,7 +218,7 @@ If multiple bean definitions exist for a particular object type the `@Resource` 
 ```
 
 `@Qualifier`
-```
+```java
 	@Autowired
 	public Order(@Qualifier("account")Account account, int id, Item item) {
 		super();
@@ -215,7 +229,7 @@ If multiple bean definitions exist for a particular object type the `@Resource` 
 ```
 
 `@Required`
-```
+```java
 package com.revature.models;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -235,7 +249,7 @@ public class Order {
 ```
 
 Note that `<context-annotation-config>` only looks for annotations on beans within the same application context in which it is defined. This means if you put `<context:annotation-config/>` within a WebApplicationContext for a DispatcherServlet, it will only check for `@Autowired` beans within these controllers, but not beans in your services. You can otherwise specify packages using the `<context:component-scan/>` element with a list of packages:
-```
+```java
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -259,9 +273,9 @@ Note that `<context-annotation-config>` only looks for annotations on beans with
 </beans>
 ```
 
-The method to instantiate the Spring IoC container using annotation configuration is similar to the XML-based configuration. The location path should be specified in an ApplicationContext Constructor using the [ClassPathXmlApplicationContext](https://docs.spring.io/spring/docs/4.0.x/javadoc-api/org/springframework/context/support/ClassPathXmlApplicationContext.html) class:
+The method to instantiate the Spring IoC container using ***annotation configuration*** is similar to the XML-based configuration. The ***location path*** should be specified in an ApplicationContext Constructor using the [ClassPathXmlApplicationContext](https://docs.spring.io/spring/docs/4.0.x/javadoc-api/org/springframework/context/support/ClassPathXmlApplicationContext.html) class:
 
-```
+```java
 ApplicationContext context = new ClassPathXmlApplicationContext(new String ("applicationContext.xml"));
 
 ```
@@ -270,7 +284,7 @@ ApplicationContext context = new ClassPathXmlApplicationContext(new String ("app
 Java also provides standard annotations which can be used to inject object dependencies. These annotations, `@Inject` and `@Named` require the use of the `javax.inject` package. Similarly to `@Autowired`, `@Inject` can occur at the class, field and constructor argument levels, based on the bean type. The `@Named` annotation can serve the same purpose as the `@Qualifier` annotation to disambiguate between bean definitions, and additionally be used as a bean definition equivalent to the `@Component` annotation.
 
 `@Inject`
-```
+```java
 package com.revature.models;
 
 import javax.inject.Inject;
@@ -290,7 +304,7 @@ public class Order {
 ```
 
 `@Named`
-```
+```java
 package com.revature.models;
 
 import javax.inject.Inject;
@@ -316,12 +330,17 @@ __NOTE__: Annotation injection is performed prior to XML injection. As such, the
 
 
 ## Java Configuration
-Java-based configuration also uses annotations, but do not require the use of an application context file. Instead, configuration management is handled by `@Configuration`-annotated class files which define `@Bean`-annotated methods used to describe the beans.
+### @Configuration
+Java-based configuration also uses ***annotations***, but do n***ot require the use of an application context file***. 
+Instead, configuration management is handled by `@Configuration`-annotated class files which define `@Bean`-annotated methods used to describe the beans.
 
-Note that you can use `@Bean`-annotated methods with any class which is `@Component`-annotated; however, they are most commonly used with `@Configuration` beans since the primary purpose for a class which is `@Configuration`-annotated is the definition of beans. In order to autowire or inject primitives, the `@ComponentScan` annotation specifies where to search for defined beans. Additionally all of these beans must be imported from the org.springframework.context.annotation package.
+Note that you can use `@Bean`-annotated methods with any class which is `@Component`-annotated; however, they are most commonly used with `@Configuration` beans since the primary purpose for a class which is `@Configuration`-annotated is the definition of beans.
+
+### @ComponentScan
+In `@ComponentScan` annotation specifies where to search for defined beans. Additionally all of these beans must be imported from the org.springframework.context.annotation package.
 
 The following example shows an illustration of the Java Configuration method:
-```
+```java
 package com.revature.config;
 
 import org.springframework.context.annotation.Bean;
@@ -392,17 +411,17 @@ ApplicationContext appContext = new AnnotationConfigApplicationContext(AppConfig
 ```
 
 ### Summary of Annotations [Alphabetical]:
-* `@Autowired` - Spring Annotation used to inject bean dependencies as needed, based on bean type.
+* `@Autowired` - Spring Annotation used to ***inject bean*** dependencies as needed, based on bean type.
 * `@Bean` - Spring annotation which plays the same role as the <bean/> element in an XML-based configuration, and you can specify an identifier for these beans with the use of the id (or name) property.
 * `@Component` - Generic [stereotype annotation](./stereotypes.md) used to declare an object as a bean.
-* `@ComponentScan` - Spring Annotation which specifies path locations for defined beans to be used for potential injection.
-* `@Configuration` - Spring annotation indicates a class file used to manage bean configurations using Java configuration similar to the Application Context file for an XML or annotation based configuration.
-* `@Inject` - Standard Java annotation used to inject bean dependencies as needed. Equivalent to Spring's `@Autowired` annotation.
-* `@Named` - Standard Java annotation for disambiguating beans based on bean name. Equivalent to Spring's `@Qualifier` annotation. Additionally can be used as an equivalent to Spring's `@Component` annotation to define beans as well.
+* `@ComponentScan` - Spring Annotation which ***specifies path locations*** for defined beans to be used for potential injection.
+* `@Configuration` - Spring annotation indicates ***a class file used to manage bean configurations using Java configuration*** similar to the Application Context file for an XML or annotation based configuration.
+* `@Inject` - Standard ***Java annotation*** used to inject bean dependencies as needed. Equivalent to Spring's `@Autowired` annotation.
+* `@Named` - Standard ***Java annotation*** for disambiguating beans based on bean name. Equivalent to Spring's `@Qualifier` annotation. Additionally can be used as an equivalent to Spring's `@Component` annotation to define beans as well.
 * `@Qualifier` - Spring Annotation which can be used in conjunction with `@Autowired` to disambiguate multiple beans of a defined type.
-* `@Required` - Standard Java annotation which indicates that an affected bean property must be populated at configuration time through an explicit property value in the bean's definition.
-* `@Resource` - Standard Java Annotation used to inject bean dependencies based on bean name, rather than type.
-
+* `@Required` - Standard ***Java annotation*** which indicates that an affected bean property must be populated at configuration time through an explicit property value in the bean's definition.
+* `@Resource` - Standard Java Annotation used to inject bean dependencies ***based on bean name***, r***ather than type.
+***
 
 ### References
 * [Spring 4.0.x  Documentation - IoC Container & Image](https://docs.spring.io/spring/docs/4.0.x/spring-framework-reference/html/beans.html)
