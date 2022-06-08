@@ -1,5 +1,8 @@
 # Spring Beans
-What is a bean? A bean is an object that is instantiated and managed by the Spring IoC container. The purpose of beans is Dependency Injection, to achieve loose coupling.
+What is a bean? 
+  * A bean is an ***object*** that is ***instantiated*** and ***managed*** by the ***Spring IoC container***. 
+  * The purpose of beans is ***Dependency Injection***, 
+  * to achieve ***loose coupling***.
 
 ## Inversion of Control & Dependency Injection
 What is Inversion of Control? This is a programming technique that reverses the idea of control. Instead of your program running the show and making all the desicions about execution, you hand off control to some other entity or entities. In our case we are talking about managing dependencies, we give control to a Spring IoC container to do dependency injection. In this way we achieve loose coupling.
