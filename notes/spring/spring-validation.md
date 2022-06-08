@@ -1,4 +1,6 @@
 # Validation
+what is validation?
+validation is a process of checking the ***correctness*** of the ***data***.
 
 ## Validation and Spring
 Validation, or the act of checking/verifying validity or accuracy of something, is an important consideration for any web application, with various pros and cons. In general validation should not be tied to the web tier, it should be easy to localize, and it should be loosely coupled with any available validators. Fortunately, Spring provides a basic yet eminently usable `Validator` interface which can work in every layer of an application. Additionally, when validating information, it is useful to utilize Data binding, which allows user input to be dynamically bound to custom models for each application. Within the Spring `validation` package, both the `Validator` interface as well as a `DataBinder` objects exist to address both. Note that Athough this package is primarily used within the MVC framework, it is not limited to it.
