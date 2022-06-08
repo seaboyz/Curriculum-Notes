@@ -8,12 +8,20 @@ The Spring Framework is an inversion of control container that provides flexible
   
 
 ## What is Spring?
-Spring an umbrella term for a family of frameworks which can be utilized to rapidly create loosely coupled Java applications. These spring frameworks provide a comprehensive and configurable model for modern enterprise Java applications, which can be easily migrated to any kind of deployment platform. This ease is due to the core feature of the Spring frameworks, which focuses on [dependency injection](./ioc-dependency-injection) resulting from the framework acting as an [inversion of control](./ioc-dependency-injection) container.
+Spring is an ***umbrella*** term for a ***family*** of frameworks which can be utilized to ***rapidly create loosely coupled*** Java applications. These spring frameworks provide a comprehensive and configurable model for modern ***enterprise Java applications***, which can be easily migrated to any kind of deployment platform. This ease is due to the core feature of the Spring frameworks, which focuses on [dependency injection](./ioc-dependency-injection) resulting from the framework acting as an [inversion of control](./ioc-dependency-injection) container.
 
-Spring enables developers to build java applications utilizing a POJO design pattern, and applying enterprises services, as needed, non-invasively to those POJOs. This loose coupling allows developers to focus on business logic for applications as Spring handles the infrastructural needs. 
+Spring enables developers to build java applications utilizing a ***POJO design pattern***, and applying enterprises services, as needed, non-invasively to those POJOs. This loose coupling allows developers to focus on business logic for applications as Spring handles the infrastructural needs. 
 
 ## Frameworks - Overview
-The Spring family of frameworks consist of close to 20 modules, each focusing on a particular task or service. These are grouped into the following layers: Core Container, Data Access/Integration, Messaging, Web, AOP, Aspects, Instrumentation and Test.
+The Spring family of frameworks consist of close to ***20 modules***, each focusing on a particular task or service. These are grouped into the following layers: 
+* Core Container, 
+* Data Access/Integration, 
+* Messaging, 
+* Web, 
+* AOP, 
+* Aspects, 
+* Instrumentation 
+* Test.
 
 ![Spring Modules](./../images/spring-overview.png)
 
