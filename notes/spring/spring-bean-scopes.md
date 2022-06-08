@@ -1,32 +1,39 @@
 # Bean Scopes
 
-Bean configuration files act similarly to the creation of a class file, in that it is a template which can be used to instantiate objects (in this case, Spring uses this configuration to create bean objects). This configuration also extends to the defined scope of those objects. As a reminder, a scope can be seen as a sub-section of a larger application, with certain defined values, properties and objects. When defining a bean in the configuration, you have the ability to define the scope as well. For XML configurations, use the scope attribute on the bean element. Otherwise you can use the `@Scope` annotation to override the default (Singleton) scope for configured beans.
+Bean configuration files act similarly to the creation of a class file, in that it is a template which can be used to instantiate objects (in this case, Spring uses this configuration to create bean objects). This ***configuration also extends to the defined scope of those objects***. As a reminder, a ***scope can be seen as a sub-section of a larger application***, with certain defined values, properties and objects. When defining a bean in the configuration, you have the ability to define the scope as well. For XML configurations, use the scope attribute on the bean element. Otherwise you can use the `@Scope` annotation to override the default (Singleton) scope for configured beans.
 
 With regard to Spring Beans, there are six scopes, four of which can only be by access when utilizing a web aware ApplicationContext. They are:
-1. Singleton Scope (default) - Each bean definition is scoped to a single object instance per Spring IoC Container.
-1. Prototype Scope - A single bean definition is scoped to a number of object instances.
-1. Request Scope [Only valid with a web-aware ApplicationContext] - A single bean definition is scoped to the lifecycle of a single HTTP request. This means the HTTP request has its own instance of a bean created from a single bean definition.
-1. Session Scope [Only valid with a web-aware ApplicationContext] - A single bean definition is scoped to the lifecycle of an HTTP Session.
-1. Gloabl Session Scope [Only valid with a web-aware ApplicationContext] - A single bean definition is scoped to the lifecycle of a global HTTP session. Generally only valid when used in a portlet context.
-1. Application Scope [Only valid with a web-aware ApplicationContext] - Scopes a single bean definition to the lifecycle of a ServletContext.
+### Singleton Scope 
+   * (default) - Each bean definition is scoped to a ***single object instance*** ***per Spring IoC Container***.
+### Prototype Scope - 
+* A single bean definition is scoped to a number of object instances.(***many objects***)
+### Request Scope 
+* [Only valid with a ***web-aware*** ApplicationContext] - A single bean definition is scoped to the lifecycle of a single HTTP request. This means the HTTP request has its own instance of a bean created from a single bean definition.
+### Session Scope 
+* [Only valid with a ***web-aware*** ApplicationContext] - A single bean definition is scoped to the lifecycle of an ***HTTP Session***.
+### Gloabl Session Scope 
+* [Only valid with a ***web-aware*** ApplicationContext] - A single bean definition is scoped to the lifecycle of a global ***HTTP session***. Generally only valid when used in a ***portlet context***.
+### Application Scope 
+* [Only valid with a*** web-aware*** ApplicationContext] - Scopes a single bean definition to the lifecycle of a ***ServletContext***.
 
 ### [Singleton Scope](https://docs.spring.io/spring/docs/4.0.x/spring-framework-reference/html/beans.html#beans-factory-scopes-singleton)
-For a Singleton Scoped bean, the IoC container will create exactly one instance of a Spring bean per bean definition. Each of those singleton beans are then stored in a cache of singleton beans. When a named bean is requested, the associated bean within this cache is returned.
+* For a Singleton Scoped bean, the IoC container will create ***exactly one instance of a Spring bean per bean definition.*** Each of those singleton beans are then stored in a cache of singleton beans. When a named bean is requested, the associated bean within this cache is returned.
 
-The Single Scope for beans is the default scope, meaning that if no scope is explicitly defined, the bean will be instantiated in this singleton scope.
+* The ***Single Scope*** for beans is the ***default scope***, meaning that if no scope is explicitly defined, the bean will be instantiated in this singleton scope.
 
 ### [Prototype Scope](https://docs.spring.io/spring/docs/4.0.x/spring-framework-reference/html/beans.html#beans-factory-scopes-prototype)
-For non-singleton beans, the prototype scope allows for the creation of a new bean instance each time a request for a specific bean definition is made.
+* For non-singleton beans, the prototype scope allows for the creation of ***a new bean instance each time*** a request for a specific bean definition is made.
 
-As a general rule, the prototype scope should be used for stateful beans, while the singleton scope should be used for stateless beans.
+* ***prototype scope*** should be used for ***stateful*** beans, 
+* ***singleton scope*** should be used for ***stateless*** beans.
 
-It is also worth noting that, unlike the other scopes, Spring does not manage the complete lifecycle of beans within the prototype scope. The container will still instantiate, configure and assemble the prototype bean object, but at that point will hand this prototype off to the client, with no other records of the prototyped instance. As such, with regard to bean lifecycles, all initialization callback methods are called on every bean, regardless of scope, the same cannot be said for the destruction lifecycle callbacks.
+It is also worth noting that(here's something, which you should remember:" ), unlike the other scopes, Spring does not manage the complete lifecycle of beans within the prototype scope. The container will still instantiate, configure and assemble the prototype bean object, but at that point will hand this prototype off to the client, with no other records of the prototyped instance. As such, with regard to bean lifecycles, all initialization callback methods are called on every bean, regardless of scope, the same cannot be said for the destruction lifecycle callbacks.
 
 ### [Request Scope](https://docs.spring.io/spring/docs/4.0.x/spring-framework-reference/html/beans.html#beans-factory-scopes-request)
-For the Request scope, the Spring IoC Container will create a new instance of a bean, based on the associated bean definition for every HTTP request recieved. These beans are particular to individual requests, so when the request completes, the associated bean within the request scope will be discarded.
+For the Request scope, the Spring IoC Container will create ***a new instance of a bean***, based on the associated bean definition for every HTTP request recieved. These beans are particular to individual requests, ***so when the request completes, the associated bean within the request scope will be discarded***.
 
 ### [Session Scope](https://docs.spring.io/spring/docs/4.0.x/spring-framework-reference/html/beans.html#beans-factory-scopes-session)
-For the Session scope, the Spring IoC container will create a new instance of a bean, based on the associated bean definition, each time a particular HTTP Session is created. When the session eventually ends, the associated bean will be discarded along with it.
+For the Session scope, the Spring IoC container will ***create a new instance of a bean***, based on the associated bean definition, each time a ***particular HTTP Session is created. When the session eventually ends, the associated bean will be discarded along with it***.
 
 ### [Global Session Scope](https://docs.spring.io/spring/docs/4.0.x/spring-framework-reference/html/beans.html#beans-factory-scopes-global-session)
 For the Global Session scope, similarly to the previous definitions, will create a bean, however, this applies only with regard to portlet-based web applications. The portlet defines the global Session that is shared among all portlets, and the IoC Container uses this global session definition to scope Beans described at the global session level. These beans are similarly discarded when the associated global portlet session concludes.
