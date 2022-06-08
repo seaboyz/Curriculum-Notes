@@ -1,11 +1,12 @@
 # Spring Module - Injecting Primitives
 
+
 ## Injecting Primitives
-Spring beans have two methods of injecting dependent data, Constructor Injection and Setter Injection.
+Spring beans have two methods of injecting dependent data, ***Constructor Injection *** and ***Setter Injection***.
 
 Constructor injection occurs when an IoC container creates a bean, passing values as arguments within that bean's constructor. Setter injection occurs when the IoC container specifically invokes a bean's setter methods for the particular properties within the object.
 
-Spring XML-based configuration files support the `<property/>` and `<constructor-arg/>` elements, which can be used to define various property values. The `<property/>` and/or `<constructor-arg/>` element should be nested within the bean in this instance. Take for example:
+***Spring XML-based configuration*** files support the `<property/>` and `<constructor-arg/>` elements, which can be used to define various property values. The `<property/>` and/or `<constructor-arg/>` element should be nested within the bean in this instance. Take for example:
 
 ```
 package com.revature.example;
@@ -75,7 +76,7 @@ public class ExampleBean {
 </bean>
 ```
 
-For Java-based and Annotation configurations, the `@Value` annotation can specify the injection of data when paired with a separate java configuration file. For example:
+For ***Java-based and Annotation configurations***, the `@Value` ***annotation*** can specify the injection of data when paired with a separate java configuration file. For example:
 
 Configuration file (jdbc.properties file):
 ```
