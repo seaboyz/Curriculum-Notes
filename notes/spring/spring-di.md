@@ -1,6 +1,9 @@
 # Spring Module - IOC Container and Dependency Injection
 
-The Spring Framework acts as an Inversion of Control (IoC) Container by utilizing Dependency Injection. IoC or Dependency Injection, refers to the process whereby objects define their dependencies, but creation, assembly and injection of those objects is performed by the Spring IoC container.
+* The Spring Framework acts as an Inversion of Control (IoC) Container by utilizing Dependency Injection. 
+* IoC or Dependency Injection, refers to the ***process*** whereby 
+  * ***objects define their dependencies***, 
+  * but ***creation***, ***assembly*** and ***injection*** of those objects is performed by the ***Spring IoC container***.
 
 https://www.baeldung.com/inversion-control-and-dependency-injection-in-spring
 
