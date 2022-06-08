@@ -1,3 +1,27 @@
+- [Spring Beans](#spring-beans)
+  - [Inversion of Control & Dependency Injection](#inversion-of-control--dependency-injection)
+  - [Loose Coupling](#loose-coupling)
+  - [Put it all together](#put-it-all-together)
+  - [Bean Lifecycle](#bean-lifecycle)
+    - [As a high-level overview:](#as-a-high-level-overview)
+      - [Instantiation](#instantiation)
+      - [Awareness - Related Interfaces are made aware. This includes:](#awareness---related-interfaces-are-made-aware-this-includes)
+      - [Initialization](#initialization)
+      - [In-Use](#in-use)
+      - [On shutdown of a bean factory (or destruction of a bean), the following lifecycle methods apply:](#on-shutdown-of-a-bean-factory-or-destruction-of-a-bean-the-following-lifecycle-methods-apply)
+- [Component Scanning Stereotypes](#component-scanning-stereotypes)
+  - [@Bean vs @Component](#bean-vs-component)
+  - [@Bean](#bean)
+    - [Bean is a key concept of the Spring Framework.](#bean-is-a-key-concept-of-the-spring-framework)
+    - [Definition](#definition)
+    - [Inversion of Control](#inversion-of-control)
+      - [Bean configuration](#bean-configuration)
+  - [@Component](#component)
+    - [@Repository](#repository)
+    - [@Service](#service)
+    - [@Controller](#controller)
+    - [@RestController](#restcontroller)
+    - [Resources](#resources)
 # Spring Beans
 What is a bean? 
   * A bean is an ***object*** that is ***instantiated*** and ***managed*** by the ***Spring IoC container***. 
@@ -165,21 +189,26 @@ assertEquals(1000, company.getAddress().getNumber());
 
 ## @Component
 @Component is used to ***annotate classes*** which Spring will ***scan*** in order to define beans.
-This is the basic annotation that allows Spring to detect our beans with component scanning. The other three are derived from this one. Marking a class with @Component or another stereotype annotation, and including that class in component scanning will cause Spring to create beans from that class in accordance with your description of a bean. You can describe other bean behaviors with annotations, things like @Scope and @Lazy.
+This is the basic annotation that allows Spring to detect our beans with ***component scanning***. The other ***three are derived from this one***. Marking a class with @Component or another stereotype annotation, and including that class in component scanning will cause Spring to create beans from that class in accordance with your description of a bean. You can describe other bean ***behaviors with annotations, things like @Scope and @Lazy***.
 
 
-* ### @Repository
-Indicates this component is a repository, "a mechanism for encapsulating storage, retrieval, and search behavior which emulates a collection of objects." -Domain-Driven Design (Evans, 2003)  
-The `@Repository` annotation marks a class for use with storing data within a repository or database. Specifically, the `@Repository` annotation provides benefits for objects that would otherwise be utilized as a Data Access Object (DAO).
-* ### @Service
+### @Repository
+* @Repository’s job is to catch persistence-specific exceptions and re-throw them as one of Spring’s unified unchecked exceptions.
+Indicates this component is a repository, "a mechanism for encapsulating ***storage***, ***retrieval***, and ***search*** behavior which emulates a ***collection of objects***." -Domain-Driven Design (Evans, 2003)  
+The `@Repository` annotation marks a class for ***use with storing data within a repository or database***. Specifically, the `@Repository` annotation provides benefits for objects that would otherwise be utilized as a Data Access Object (DAO).
+
+### @Service
+ * We mark beans with @Service to indicate that they're holding the ***business*** logic.
 Indicates this component is a service, "an operation offered as an interface that stands alone in the model, with no encapsulated state." -Domain-Driven Design (Evans, 2003)
 
-* ### @Controller
-Indicates this component is an MVC controller, which handles requests and responses. Frequently used in combination with @RequestMapping.
-The `@Controller` annotation marks a class as a Spring MVC Controller which allow the use of handlder mapping annotations. Classes annotated with `@Controller` are autodeteced through classpath scanning, and when used in comination with `@RequestMapping`, allows for quick configurations of a web application controller.
+### @Controller
+* Spring MVC is one of many frameworks built on top of ***servlets*** 
+Indicates this component is an MVC controller, which handles ***requests*** and ***responses***. Frequently used in combination with @RequestMapping.
+The `@Controller` annotation marks a class as a Spring MVC Controller which ***allow*** the use of handlder ***mapping annotations***. Classes annotated with `@Controller` are autodeteced through classpath scanning, and when used in comination with `@RequestMapping`, allows for quick configurations of a web application controller.
 
 ### @RestController
 This is a specialization of @Controller, it simply combines @Controller with @ResponseBody.
+**== @Controller + @RequestBody**
 
 
 
