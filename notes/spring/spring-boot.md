@@ -1,10 +1,10 @@
 # Spring Boot Module - Spring Boot
 
-Spring Boot is an open source Spring Framework project used to rapidly create Java based, production-grade applications utilizing Spring Framework's IOC and module integrations. Spring Boot simplifies the process of project startup and framework integration by applying highly opinionated auto-configurations for the different Spring Boot project modules like webmvc, data, security, messaging, etc... .
+Spring Boot is an ***open source Spring Framework*** project used to ***rapidly*** create ***Java based***, ***production-grade applications*** utilizing Spring Framework's IOC and module integrations. Spring Boot simplifies the process of project startup and framework integration by applying highly ***opinionated auto-configurations*** for the different Spring Boot project modules like webmvc, data, security, messaging, etc... .
 
 Spring Boot has really become popular as more and more companies create or convert their systems using microservice patterns.
 
-
+### Spring boot vs spring 
 
 ### Spring Boot Dependency Management
 
@@ -63,28 +63,38 @@ Needless to say Spring and Spring Boot require an increasing number of dependenc
 
 That will be all that you need for a basic Spring Boot project. Lets illustrate the difference between a basic project and more complicated one. A simple Spring Boot Web application will also have 4 parts:
 
-- parent configuration
-- spring-boot-starter-webmvc
-- spring-boot-starter-test
-- spring-boot-maven-plugin
+- ***parent configuration***
+- ***spring-boot-starter-webmvc***
+- ***spring-boot-starter-test***
+- ***spring-boot-maven-plugin***
 
-And that is all the, `spring-boot-starter-webmvc` dependency replaces the `spring-boot-starter` dependency, but it contains all of the dependencies needed for the basic application and the web application.
+And that is all the, ***spring-boot-starter-webmvc*** dependency ***replaces*** the ***spring-boot-starter*** dependency, but it contains all of the dependencies needed for the basic application and the web application.
 
 ![Spring Boot WebMVC Dependencies](./../images/sb-s-wmvc.png)
 
-In the diagram you can see how the `spring-boot-starter-webmvc` is an extension of the `spring-boot-starter`.
+In the diagram you can see how the ***spring-boot-starter-webmvc*** is an extension of the ***spring-boot-starter***.
 
 ## AutoConfiguration
 
-As we have covered the core Spring Framework and how to integrate different modules and wire dependencies, the biggest draw to using Spring Boot is the autoconfiguration. Spring Boot takes a highly opinionated stance on the module integrations reducing the amount of Spring Configuration needed to start developing and testing your solutions. Imagine integrating webmvc without having to start a server, or register your dispatcher servlet, or register your internal view resolver. Spring Boot automatically assumes you need all of these beans, creates them and wires them together. Better yet it automatically prescribes the solutions and its alternatives.
+As we have covered the core Spring Framework and how to integrate different modules and wire dependencies, the biggest draw to using Spring Boot is the ***autoconfiguration***. Spring Boot takes a highly opinionated stance on the module integrations ***reducing the amount of Spring Configuration*** needed to start developing and testing your solutions. Imagine integrating webmvc without having to start a server, or register your dispatcher servlet, or register your internal view resolver. ***Spring Boot automatically assumes you need all of these beans, creates them and wires them together.*** Better yet it automatically prescribes the solutions and its alternatives.
 
 To further elaborate on this example if you include the Spring Boot WebMVC module you will automatically get:
 
-- Embedded Tomcat Servlet Container (Jetty or UnderTow)
-- Standard DispatcherServlet
-- JSP Internal View Resolver
+- ***Embedded Tomcat Servlet Container*** (Jetty or UnderTow)
+- Standard ***DispatcherServlet***
+- ***JSP Internal View Resolver***
 
 To enable auto configuration in Spring Boot, you need to include `@EnableAutoConfiguration` or `@SpringBootApplication` on a class. If you use `@EnableAutoConfiguration` then the class that the annotation is on must also be annotated with `@Configuration`. `@SpringBootApplication` doesn't require the same treatment, but it is important to note `@SpringBootApplication` is the combination of the `@SpringBootConfiguration`, `@EnableAutoConfiguration`, and `@ComponentScan` annotations.
+***@SpringBootApplication = @SpringBootConfiguration + @EnableAutoConfiguration + @ComponentScan***
+
+```java
+@SpringBootApplication
+public class App {
+  public static void main(String[] args) {
+    SpringApplication.run(App.class, args);
+  }
+}
+```
 
 The Spring team have created a tool call [Spring Initializr](https://start.spring.io) to help create Spring Boot application. Any application created using `Spring Initializr` either through the site or IDE plugin/integrations, will be create with a main class that is already annotated with `@SpringBootApplication`
 
@@ -120,14 +130,15 @@ public class HibernateBeanConfiguration {
 Running a Spring Boot application is just a matter of either configuring your IDE to run the `main` method of the main class or using the included maven wrapper or gradle wrapper with the command `./mvnw spring-boot:run` or `./gradlew bootRun` respectively. It is important though to highlight the main method of the main class
 
 ```java
+@SpringBootApplication
 public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
 ```
 
-The `main` method invokes the `SpringApplication.run` method which is passed the class type of the main class. This starts the Spring Boot application using the main class as the root class for configuration and component scanning.
+The `main` method ***invokes*** the `SpringApplication.run` method which is passed the class type of the main class. This starts the Spring Boot application using the main class as the ***root class*** for ***configuration*** and ***component scanning***.
 
-It is super important to remember to keep classes and interfaces inside of the same root package of the project. Otherwise it will be required to include an additional `@ComponentScan` annotation to enumerate the other packages for scanning.
+It is super important to remember to ***keep classes and interfaces inside of the same root package of the project***. Otherwise it will be required to include an additional `@ComponentScan` annotation to enumerate the other packages for scanning.
 
 ### Spring Boot CLI
 
