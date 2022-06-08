@@ -1,11 +1,11 @@
 # Spring Data JPA
-At this point, we have already utilized the Data Access Object (DAO) Layer to handle communication of data between our application and our repository. This DAO layer usually consists of a lot of boilerplate code, and as such can and should be simplified. There are numerous reasons to simplfy this code, including a decrease in the number of artifacts that need to be defined and maintained, consistency of data access patters, consistency of configuration, and quicker implementation for updated repository data.
+At this point, we have already utilized the Data Access Object (DAO) Layer to handle communication of data between our application and our repository. This DAO layer usually consists of a lot of ***boilerplate*** code, and as such can and should be simplified. There are numerous reasons to simplfy this code, including a decrease in the number of artifacts that need to be defined and maintained, consistency of data access patters, consistency of configuration, and quicker implementation for updated repository data.
 
-The Spring Data module takes this simplification one step further by providing standard implementation for common DAO methods allowing for the removal of the DAO implementation and only requiring the definition of the DAO interface methods.
+The Spring Data module takes this simplification one step further by providing ***standard implementation for common DAO methods allowing for the removal of the DAO implementation and only requiring the definition of the DAO interface methods***.
 
-In order to leverage the Sping Data programming model with JPA, a DAO interface should extend the Spring _JpaRepository_ interface from the `org.springframework.data.jpa.repository` package. Note that it is possible to create a basic CRUD application by extending the spring _CrudRepository_ interface (from the `org.springframework.data.repository` package), though this only provides an interface for generic CRUD operations on a repository, and does not leverage the JPA.
+In order to leverage the Sping Data programming model with JPA, a DAO interface should extend the Spring ***JpaRepository*** interface from the `org.springframework.data.jpa.repository` package. Note that it is possible to create a basic CRUD application by extending the spring _CrudRepository_ interface (from the `org.springframework.data.repository` package), though this only ***provides an interface for generic CRUD operations*** on a repository, and ***does not leverage the JPA.***
 
-![Spring JPA Repository Hierarchy](./../images/springdatajrepositories.png)
+![Spring JPA Repository Hierarchy](../images/spring-data-jpa-hierachy.webp)
 
 Implementation of the Spring _JpaRepository_ provides the following:
 * Sophisticated support to build repositories based on Spring and JPA
