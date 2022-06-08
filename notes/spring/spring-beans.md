@@ -5,28 +5,48 @@ What is a bean?
   * to achieve ***loose coupling***.
 
 ## Inversion of Control & Dependency Injection
-What is Inversion of Control? This is a programming technique that reverses the idea of control. Instead of your program running the show and making all the desicions about execution, you hand off control to some other entity or entities. In our case we are talking about managing dependencies, we give control to a Spring IoC container to do dependency injection. In this way we achieve loose coupling.
+What is Inversion of Control? 
+* This is a programming technique that reverses the idea of control. 
+* Instead of your program running the show and making all the desicions about execution, you hand off control to some other entity or entities. 
+* In our case we are talking about managing ***dependencies***, we give control to a S***pring IoC container*** to do ***dependency injection***. In this way we achieve ***loose coupling***.
 
 ## Loose Coupling
-So, what is loose coupling? This is an approach where components depend on eachother to the least extent possible. For us today, that means any dependent objects are instantiated elsewhere and provided to our object via constructors or setters. These objects are our beans. They are instantiated by the IoC container, and are provided via dependency injection.
+So, what is loose coupling?
+* Rely on ***abstraction*** rather than ***concret implementation***
+* This is an approach where components depend on eachother to the ***least*** extent ***possible***. 
+* For us today, that means any ***dependent objects*** are ***instantiated elsewhere*** and ***provided*** to our object via ***constructors*** or ***setters***. These objects are our beans. 
+* They are ***instantiated by the IoC container***, 
+* ***provided via dependency injection***.
 
 ## Put it all together
-So now, to wrap this all together: We invert control, giving it to the IoC container which can then manage our beans and do dependency injection so that we can achieve looser coupling. Why is all this necessary? To abstract away as much of the implementation details as possible. Spring is a giant framework and there are a lot of things going on, and a lot to learn about. But, without these techniques it would be significantly more difficult, and it would be far more difficult to deal with changes. These techniques are widely used throughout the Spring framework, and allow us to utilize an enormous number of features that can be changed and updated without troubling us. Spring offers modules that handle web service, data persistence, logging, security, basically anything that has wide use in enterprise java applications. For added context, read [Martin Fowler's write-up](https://martinfowler.com/articles/injection.html). 
+So now, to wrap this all together: We invert control, giving it to the IoC container which can then manage our beans and do dependency injection so that we can achieve looser coupling. 
+Why is all this necessary? 
+* To abstract away as much of the implementation details as possible. Spring is a giant framework and there are a lot of things going on, and a lot to learn about. But, without these techniques it would be significantly more difficult, and it would be far more difficult to deal with changes. These techniques are widely used throughout the Spring framework, and allow us to utilize an enormous number of features that can be changed and updated without troubling us. Spring offers modules that handle ***web service***, ***data persistence***, ***logging***, ***security***, basically ***anything*** that has wide use in ***enterprise java applications***. For added context, read [Martin Fowler's write-up](https://martinfowler.com/articles/injection.html). 
 
-Take web service for example. With just a few set up steps you can get a simple restful API up and running with Spring, by giving control of handling everything to spring. You configure settings like path and port, but you otherwise don't care about implementation. You don't have to instantiate objects and dependencies, spin up a thread pool, listen for incoming connections, establish sessions, and all that. You let Spring do all this for you, you hand control off to spring. The spring hands control back once a request is ready, you handle it, and hand control back to spring. If you need to persist data you can set up your object and hand control off to Spring JPA. If you encounter a problem at any point you can hand control off to spring to log info.
+
+Take ***web service*** for example. With just a few set up steps you can get a simple ***restful API*** up and running with Spring, by giving control of handling everything to spring. You configure settings like ***path*** and ***port***, but you otherwise don't care about implementation. 
+* You don't have to ***instantiate*** objects and ***dependencies***, 
+* ***spin up a thread pool***, 
+* ***listen for incoming connections***, 
+* ***establish sessions***, and all that. 
+* You let Spring do all this for you, you hand control off to spring. The spring hands control back once a request is ready, you handle it, and hand control back to spring. If you need to persist data you can set up your object and hand control off to Spring JPA. If you encounter a problem at any point you can hand control off to spring to log info.
 
 
 ## Bean Lifecycle
-The management of beans, conducted by the BeanFactory or Application Context, includes instantiation, configuration, and the eventual removal (or destruction) of beans. As a high-level overview:
-1. Bean is instantiated
-1. Bean properties are set
-1. Associated interfaces are made aware of the beans existence
-1. The bean is made aware of any associated interfaces as well
-1. Initialization methods, including custom ones, are invoked
-1. Then the bean is ready for use
-1. Once the bean is no longer used, it is marked for removal and a destroy method is invoked for the bean
-1. Custom destroy methods are invoked, if any
-1. Bean is the destroyed
+The management of beans, conducted by the ***BeanFactory*** or ***Application Context***, includes 
+* ***instantiation***, 
+* ***configuration***, 
+* ***destruction***
+### As a high-level overview:
+1. Bean is ***instantiated***
+2. Bean ***properties*** are set
+3. Associated ***interfaces*** are made aware of the ***beans*** ***existence***
+4. The bean is made aware of any associated interfaces as well
+5. ***Initialization methods***, including custom ones, are invoked
+6. Then the bean is ***ready for use***
+7. Once the bean is no longer used, it is*** marked for remova***l and a destroy method is invoked for the bean
+8. Custom ***destroy methods are invoked***, if any
+9. Bean is the ***destroyed***
 
 The following is a visualization of this lifecycle:
 
