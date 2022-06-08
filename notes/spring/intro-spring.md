@@ -1,6 +1,11 @@
 # Spring Framework - Intro to Spring
 
 The Spring Framework is an inversion of control container that provides flexible infrastructural support to create loosely coupled Java applications by utilizing dependency injection.
+* invertion of control container
+* flexible infrastructureal support
+* loosely coupled
+* dependency injection
+  
 
 ## What is Spring?
 Spring an umbrella term for a family of frameworks which can be utilized to rapidly create loosely coupled Java applications. These spring frameworks provide a comprehensive and configurable model for modern enterprise Java applications, which can be easily migrated to any kind of deployment platform. This ease is due to the core feature of the Spring frameworks, which focuses on [dependency injection](./ioc-dependency-injection) resulting from the framework acting as an [inversion of control](./ioc-dependency-injection) container.
