@@ -1,8 +1,11 @@
-# Aspect Oriented Programming
+# Aspect Oriented Programming(event drive, when something happens, do something)
 ## problem to solve
 * Too many relationships to the crosscutting object
 * code is still required inthe methods
 * cannot all be changed at once
+## steps 
+* white aspects
+* configure aspects where apply
 
 ## Cross Cutting Concerns
 * In Aspect Oriented Programming, the key component are ***aspects***, which ***modularizes particular transactional concerns*** which can present across multiple classes, known as _cross-cutting concerns_.
